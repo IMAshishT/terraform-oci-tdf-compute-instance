@@ -4,15 +4,34 @@
 
 locals {
   comp_instances = {
-          inst1-Python = {
-              ad                          = null                                                                                  #0-AD1, 1-AD2, 3-AD3 Required
+          PTL_01 = {
+              ad                          = 0                                                                                  #0-AD1, 1-AD2, 3-AD3 Required
               compartment_id              = null #"ocid1.xxxxx" #Optional if var.default_compartment_id set
               shape                       = "VM.Standard2.1"                                                                      #Required
-              subnet_id                   = "ocid1.xxxxx"   #Required
+              subnet_id                   = "ocid1.subnet.oc2.us-langley-1.aaaaaaaao5vibt2erizz742q3huwnsqecc7mkrztdnhxu2rtbfpddd3mzwla"   #Required
+              assign_public_ip            = false
+              fault_domain                = "FAULT-DOMAIN-1"
+
+              ssh_authorized_keys         = ["../../keys/publicKey.pub"]     #ex: ["/path/public-key.pub"]
+              ssh_private_keys            = ["../../keys/sshKey"]    #ex: ["/path/private-key"]
+              bastion_ip                  = null
+              user_data                   = base64encode(file("bootstrap.sh"))
+
+              image_name                  = "Oracle-Linux-7.7-2020.03.23-0" #Required
+              source_id                   = "ocid1.image.oc2.us-langley-1.aaaaaaaanpy5qap45zeroc7u5unxcn6cbkea5bymx4ubbqmk4psqqe27moeq" #"ocid1.xxxxx"  #Required
+              
+              boot_vol_size_gbs           = "50"
+              
+              mount_blk_vols              = true
+              block_volumes               = [{
+                                              volume_id        = "ocid1.volume.oc2.us-langley-1.abwgmljrenmh52pkovllemk2naiehl7whhe3b2xki4cy4vcmyzzxtfbvmbza",
+                                              attachment_type  = "iscsi",
+                                              volume_mount_dir = "/u01"
+                                            }]
 
               is_monitoring_disabled      = null
 
-              assign_public_ip            = true
+              
               vnic_defined_tags           = null
               vnic_display_name           = null
               vnic_freeform_tags          = null
@@ -23,30 +42,25 @@ locals {
               defined_tags                = null
               display_name                = null
               extended_metadata           = null
-              fault_domain                = null
+
               freeform_tags               = null
               hostname_label              = null
               ipxe_script                 = null
               pv_encr_trans_enabled       = null
 
-              ssh_authorized_keys         = ["</path/public key file>"]     #ex: ["/path/public-key.pub"]
-              ssh_private_keys            = ["</path/private key file>"]    #ex: ["/path/private-key"]
+              
               bastion_ip                  = null
-              user_data                   = base64encode(file("bootstrap.sh"))
+              
 
-              // See https://docs.cloud.oracle.com/iaas/images/
-              // Oracle-provided image "Oracle-Linux-7.7-2019.10.19-0"
-              image_name             = "Oracle-Linux-7.7-2019.10.19-0" #Required
-              source_id                   = null #"ocid1.xxxxx"  #Required
+              
               source_type                 = null
-              boot_vol_size_gbs           = null
+              
               kms_key_id                  = null
 
               preserve_boot_volume        = null
               instance_timeout            = null
               sec_vnics                   = null
-              mount_blk_vols              = null
-              block_volumes               = null
+              
               cons_conn_create            = null
               cons_conn_def_tags          = null
               cons_conn_free_tags         = null
@@ -54,53 +68,51 @@ locals {
               mkp_image_name_version      = null
           }, 
           "inst2-Apache" = {
-              ad                           = 0                                                                                     #0-AD1, 1-AD2, 3-AD3 Required
+              ad                          = 0                                                                                  #0-AD1, 1-AD2, 3-AD3 Required
               compartment_id              = null #"ocid1.xxxxx" #Optional if var.default_compartment_id set
               shape                       = "VM.Standard2.1"                                                                      #Required
+              subnet_id                   = "ocid1.subnet.oc2.us-langley-1.aaaaaaaao5vibt2erizz742q3huwnsqecc7mkrztdnhxu2rtbfpddd3mzwla"   #Required
+              assign_public_ip            = false
+              fault_domain                = "FAULT-DOMAIN-1"
 
-              is_monitoring_disabled      = null
-
-              subnet_id                   = "ocid1.xxxxx"   #Required
-              assign_public_ip            = true
-              vnic_defined_tags           = null
-              vnic_display_name           = "VNICName"
-              vnic_freeform_tags          = null
-              nsg_ids                     = null # ["ocid1.xxxxx"] Required to access
-              private_ip                  = null  #"10.0.3.8"
-              skip_src_dest_check               = null
-
-              defined_tags                = null
-              display_name                = "SimpleInstance2"
-              extended_metadata           = null
-              fault_domain                = null  #"FAULT-DOMAIN-1"
-              freeform_tags               = null
-              hostname_label              = null  #"HostLabel"
-              ipxe_script                 = null
-              pv_encr_trans_enabled       = null
-
-              ssh_authorized_keys         = ["</path/public key file>"]     #ex: ["/path/public-key.pub"]
-              ssh_private_keys            = ["</path/private key file>"]    #ex: ["/path/private-key"]
-              user_data                   = base64encode(file("bootstrap-Apache.sh"))
+              ssh_authorized_keys         = ["../../keys/publicKey.pub"]     #ex: ["/path/public-key.pub"]
+              ssh_private_keys            = ["<../../keys/sshKey"]    #ex: ["/path/private-key"]
               bastion_ip                  = null
+              user_data                   = base64encode(file("bootstrap.sh"))
 
-              // See https://docs.cloud.oracle.com/iaas/images/
-              // Oracle-provided image "Oracle-Linux-7.7-2019.10.19-0"
-              image_name             = "Oracle-Linux-7.7-2019.10.19-0" #Required
-              source_id                   = null #"ocid1.image.oc1.iad.aaaaaaaay66pu7z27ltbx2uuatzgfywzixbp34wx7xoze52pk33psz47vlfa"  #Required
-              mkp_image_name              = null
-              mkp_image_name_version      = null
-              source_type                 = null
-              boot_vol_size_gbs           = 60
-              kms_key_id                  = null
-
-              preserve_boot_volume        = null
-              instance_timeout            = "25m"
-              sec_vnics                   = null
-              mount_blk_vols              = null
-              block_volumes               = null
-              cons_conn_create            = null
-              cons_conn_def_tags          = null
-              cons_conn_free_tags         = null
+              image_name                  = "Oracle-Linux-7.7-2020.03.23-0" #Required
+              source_id                   = "ocid1.image.oc2.us-langley-1.aaaaaaaanpy5qap45zeroc7u5unxcn6cbkea5bymx4ubbqmk4psqqe27moeq" #"ocid1.xxxxx"  #Required
+              
+              boot_vol_size_gbs           = "50"
+              mount_blk_vols              = true
+              block_volumes               = [{
+                                              volume_id        = "ocid1.volume.oc2.us-langley-1.abwgmljrafi7po73phwgxpg7kdjsnplz75ipypstbbncmwekqknqslfcudla",
+                                              attachment_type  = "iscsi",
+                                              volume_mount_dir = "/u01"
+                                            }]
+              is_monitoring_disabled              = null
+              vnic_defined_tags                   = null
+              vnic_display_name                   = null
+              vnic_freeform_tags                  = null
+              nsg_ids                             = null
+              private_ip                          = null
+              skip_src_dest_check                 = null
+              defined_tags                        = null
+              extended_metadata                   = null
+              freeform_tags                       = null
+              hostname_label                      = null
+              ipxe_script                         = null
+              pv_encr_trans_enabled               = null
+              source_type                         = null
+              kms_key_id                          = null
+              preserve_boot_volume                = null
+              instance_timeout                    = null
+              sec_vnics                           = null
+              cons_conn_create                    = null
+              cons_conn_def_tags                  = null
+              cons_conn_free_tags                 = null
+              mkp_image_name                      = null
+              mkp_image_name_version              = null
           }
   }
 }

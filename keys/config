@@ -1,0 +1,6 @@
+[DEFAULT]
+user=ocid1.user.oc2..aaaaaaaanoowslx3dfdrtekstwlp5u2ga32rgo3tmpz6ojqynee6aturjc4a
+fingerprint=2d:ee:aa:a9:45:ea:86:88:2a:bd:0d:d6:83:aa:87:72
+key_file=D:\OCI\Keys\API-Keys\oci_api_key.pem
+tenancy=ocid1.tenancy.oc2..aaaaaaaamcew2mgy575szfvydak7xwwodavsdnfdxtt63vppxoktnf3oy2ba
+region=us-langley-1

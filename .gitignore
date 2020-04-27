@@ -12,7 +12,7 @@ Thumbs.db
 .terraform
 terraform.tfstate
 *.tfstate*
-*.tfvars
+
 *.old
 *.backup
 *.test
