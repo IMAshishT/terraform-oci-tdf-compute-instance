@@ -14,7 +14,7 @@ locals {
 
               ssh_authorized_keys         = ["../../keys/publicKey.pub"]     #ex: ["/path/public-key.pub"]
               ssh_private_keys            = ["../../keys/sshKey"]    #ex: ["/path/private-key"]
-              bastion_ip                  = null
+              bastion_ip                  = "139.87.70.194"
               user_data                   = base64encode(file("bootstrap.sh"))
 
               image_name                  = "Oracle-Linux-7.7-2020.03.23-0" #Required
@@ -76,7 +76,7 @@ locals {
               fault_domain                = "FAULT-DOMAIN-1"
 
               ssh_authorized_keys         = ["../../keys/publicKey.pub"]     #ex: ["/path/public-key.pub"]
-              ssh_private_keys            = ["<../../keys/sshKey"]    #ex: ["/path/private-key"]
+              ssh_private_keys            = ["../../keys/sshKey"]    #ex: ["/path/private-key"]
               bastion_ip                  = null
               user_data                   = base64encode(file("bootstrap.sh"))
 
