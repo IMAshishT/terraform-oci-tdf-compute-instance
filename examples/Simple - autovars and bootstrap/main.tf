@@ -47,12 +47,7 @@ locals {
               hostname_label              = null
               ipxe_script                 = null
               pv_encr_trans_enabled       = null
-
-              
-              bastion_ip                  = null
-              
-
-              
+                            
               source_type                 = null
               
               kms_key_id                  = null
@@ -77,7 +72,7 @@ locals {
 
               ssh_authorized_keys         = ["../../keys/publicKey.pub"]     #ex: ["/path/public-key.pub"]
               ssh_private_keys            = ["../../keys/sshKey"]    #ex: ["/path/private-key"]
-              bastion_ip                  = null
+              bastion_ip                  = "139.87.70.194"
               user_data                   = base64encode(file("bootstrap.sh"))
 
               image_name                  = "Oracle-Linux-7.7-2020.03.23-0" #Required
@@ -95,7 +90,7 @@ locals {
               vnic_display_name                   = null
               vnic_freeform_tags                  = null
               nsg_ids                             = null
-              private_ip                          = null
+              private_ip                  = null
               skip_src_dest_check                 = null
               defined_tags                        = null
               extended_metadata                   = null
